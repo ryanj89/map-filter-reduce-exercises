@@ -5,7 +5,25 @@ function entryCalculator (entrants) {
 };
 
 function schedule (dayName) {
-  // your code here
+  var days = Object.keys(zoo.hours);
+  var weeklySchedule = days.reduce(getWeeklySchedule, {});
+
+  if (dayName) {  // If day specified
+    var dailySchedule = {};
+    dailySchedule[dayName] = weeklySchedule[dayName];
+    return dailySchedule;
+  } else { // Otherwise, return weekly
+    return weeklySchedule;
+  }
+
+  function getWeeklySchedule(schedule, day) {
+    if (day === 'Monday') {
+      schedule[day] = 'CLOSED';
+    } else {
+      schedule[day] = 'Open from ' + zoo.hours[day].open + 'am until ' + (zoo.hours[day].close - 12) + 'pm';
+    }
+    return schedule;
+  }
 };
 
 function animalCount (species) {
