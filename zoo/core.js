@@ -1,5 +1,7 @@
+var zoo = require('./data');
+
 function entryCalculator (entrants) {
-  // your code here
+  return entrants ? Object.keys(entrants).reduce((total, person) => total + (entrants[person] * zoo.prices[person]), 0) : 0;
 };
 
 function schedule (dayName) {

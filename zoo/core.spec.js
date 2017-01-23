@@ -21,7 +21,7 @@ describe('Zoo', function() {
   describe('#schedule()', function () {
     it('with no parameters, returns a more human readable schedule', function () {
       var result = zoo.schedule();
-      var expected = { 
+      var expected = {
         'Tuesday': 'Open from 8am until 6pm',
         'Wednesday': 'Open from 8am until 6pm',
         'Thursday': 'Open from 10am until 8pm',
@@ -36,14 +36,14 @@ describe('Zoo', function() {
 
     it('with a single day entered, returns only that day in a more human readable format', function () {
       var result = zoo.schedule('Monday');
-      var expected = { 
+      var expected = {
         'Monday': 'CLOSED'
       };
 
       assert.deepEqual(expected, result);
 
       var result = zoo.schedule('Tuesday');
-      var expected = { 
+      var expected = {
         'Tuesday': 'Open from 8am until 6pm'
       };
 
@@ -51,7 +51,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#animalCount()', function () {
+  xdescribe('#animalCount()', function () {
     it('with no parameters, returns animals and their counts', function () {
       var result   = zoo.animalCount();
       var expected = {
@@ -63,7 +63,7 @@ describe('Zoo', function() {
                       'frogs': 2,
                       'snakes': 2,
                       'elephants': 4,
-                      'giraffes': 6 
+                      'giraffes': 6
                      };
 
       assert.deepEqual(expected, result);
@@ -82,10 +82,10 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#animalMap()', function () {
+  xdescribe('#animalMap()', function () {
     it('with no parameters, returns the animals categorized by location', function () {
       var result   = zoo.animalMap();
-      var expected = { 
+      var expected = {
                        NE: [ 'lions', 'giraffes' ],
                        NW: [ 'tigers', 'bears', 'elephants' ],
                        SE: [ 'penguins', 'otters' ],
@@ -99,7 +99,7 @@ describe('Zoo', function() {
       var options  = { includeNames: true }
       var result   = zoo.animalMap(options);
       var expected = { NE: [ { lions: [ 'Zena', 'Maxwell', 'Faustino', 'Dee' ] },
-                             { giraffes: [ 'Gracia', 'Antone', 'Vicky', 
+                             { giraffes: [ 'Gracia', 'Antone', 'Vicky',
                                            'Clay', 'Arron', 'Bernard' ] } ],
                        NW: [ { tigers: [ 'Shu', 'Esther' ] },
                              { bears: [ 'Hiram', 'Edwardo', 'Milan' ] },
@@ -133,12 +133,12 @@ describe('Zoo', function() {
       var options  = { sex: 'female' }
       var result   = zoo.animalMap(options)['NE'][0];
       var expected = 'lions';
-      
+
       assert.equal(expected, result);
     });
   });
 
-  describe('#animalPopularity()', function () {
+  xdescribe('#animalPopularity()', function () {
     it ('with no parameters, returns animals sorted into groups by popularity', function () {
       var result = zoo.animalPopularity();
       var expected = { '2': [ 'frogs' ],
@@ -157,7 +157,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#animalsByIds()', function () {
+  xdescribe('#animalsByIds()', function () {
     it ('with no parameters, returns an empty array', function () {
       var result = zoo.animalsByIds();
       var expected = [];
@@ -167,7 +167,7 @@ describe('Zoo', function() {
 
     it ('with a single id, returns the animals with that id', function () {
       var result = zoo.animalsByIds('0938aa23-f153-4937-9f88-4858b24d6bce');
-      var expected = [{ 
+      var expected = [{
         id: '0938aa23-f153-4937-9f88-4858b24d6bce',
         name: 'lions',
         popularity: 4,
@@ -186,7 +186,7 @@ describe('Zoo', function() {
     it ('with an array of ids, returns those animals that have one of the ids', function () {
       var result = zoo.animalsByIds(['0938aa23-f153-4937-9f88-4858b24d6bce',
                                      'e8481c1d-42ea-4610-8e11-1752cfc05a46']);
-      var expected = [{ 
+      var expected = [{
         id: '0938aa23-f153-4937-9f88-4858b24d6bce',
         name: 'lions',
         popularity: 4,
@@ -197,7 +197,7 @@ describe('Zoo', function() {
           { name: 'Faustino', sex: 'male', age: 7 },
           { name: 'Dee', sex: 'female', age: 14 }
         ]
-      },{ 
+      },{
         id: 'e8481c1d-42ea-4610-8e11-1752cfc05a46',
         name: 'tigers',
         popularity: 5,
@@ -212,7 +212,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#animalByName()', function () {
+  xdescribe('#animalByName()', function () {
     it('with no parameters, returns an empty object', function () {
       var result   = zoo.animalByName();
       var expected = {};
@@ -228,14 +228,14 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#employeesByIds()', function () {
+  xdescribe('#employeesByIds()', function () {
     it('with no parameters, returns an empty array', function () {
       var result   = zoo.employeesByIds();
       var expected = [];
 
       assert.deepEqual(expected, result);
     });
-    
+
     it('with a single id, returns the employee with that id', function () {
       var result   = zoo.employeesByIds('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1');
       var expected = [{
@@ -278,7 +278,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#employeeByName()', function () {
+  xdescribe('#employeeByName()', function () {
     it('with no parameters, returns an empty object', function () {
       var result   = zoo.employeeByName();
       var expected = {};
@@ -317,7 +317,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#managersForEmployee()', function () {
+  xdescribe('#managersForEmployee()', function () {
     it('with an employee\'s id, returns the names of that employee\'s managers', function () {
       var result   = zoo.managersForEmployee('b0dc644a-5335-489b-8a2c-4e086c7819a2');
       var expected = {
@@ -362,7 +362,7 @@ describe('Zoo', function() {
     });
   });
 
-  describe('#employeeCoverage()', function () {
+  xdescribe('#employeeCoverage()', function () {
     it('with no parameters, returns a list of employees and the animals they\'re responsible for', function () {
       var result   = zoo.employeeCoverage();
       var expected = { 'Nigel Nelson': [ 'lions', 'tigers' ],
