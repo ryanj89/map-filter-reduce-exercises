@@ -51,7 +51,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#animalCount()', function () {
+  describe('#animalCount()', function () {
     it('with no parameters, returns animals and their counts', function () {
       var result   = zoo.animalCount();
       var expected = {

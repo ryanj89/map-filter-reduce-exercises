@@ -27,7 +27,11 @@ function schedule (dayName) {
 };
 
 function animalCount (species) {
-  // your code here
+  var animalCount = zoo.animals.reduce(function(animalCount, animal) {
+    animalCount[animal.name] = animal.residents.length;
+    return animalCount;
+  }, {});
+  return species ? animalCount[species] : animalCount;
 };
 
 function animalMap (options) {
