@@ -32,17 +32,14 @@ function positiveRowsOnly (array) {
 };
 
 function allSameVowels (array) {
-  var sameVowels = array.filter(function(item) {
-    var regex = /[aeiou]/g;
-    var vowels = item.match(regex);
+  return array.filter(function(item) {
+    var vowelsArray = item.match(/[aeiou]/g);
 
-    function isSameVowel(item) {
-      return item;
-    }
-    return vowels.every(isSameVowel);
+    return vowelsArray.every(function(item, _, collection) {
+      var vowel = collection[0];
+      return item === vowel;
+    });
   });
-  console.log(sameVowels);
-  return sameVowels;
 };
 
 module.exports = {
