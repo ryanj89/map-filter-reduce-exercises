@@ -82,7 +82,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#animalMap()', function () {
+  describe('#animalMap()', function () {
     it('with no parameters, returns the animals categorized by location', function () {
       var result   = zoo.animalMap();
       var expected = {
@@ -113,7 +113,7 @@ describe('Zoo', function() {
     });
 
 
-    it('with specified options, returns names of fe/male animals', function () {
+    xit('with specified options, returns names of fe/male animals', function () {
       var options  = { includeNames: true, sex: 'female' }
       var result   = zoo.animalMap(options);
       var expected = { NE: [ { lions: [ 'Zena', 'Dee' ] },
@@ -129,7 +129,7 @@ describe('Zoo', function() {
       assert.deepEqual(expected, result);
     });
 
-    it('will only return gender specific information if includeNames is set', function () {
+    xit('will only return gender specific information if includeNames is set', function () {
       var options  = { sex: 'female' }
       var result   = zoo.animalMap(options)['NE'][0];
       var expected = 'lions';
@@ -138,7 +138,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#animalPopularity()', function () {
+  describe('#animalPopularity()', function () {
     it ('with no parameters, returns animals sorted into groups by popularity', function () {
       var result = zoo.animalPopularity();
       var expected = { '2': [ 'frogs' ],
@@ -157,7 +157,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#animalsByIds()', function () {
+  describe('#animalsByIds()', function () {
     it ('with no parameters, returns an empty array', function () {
       var result = zoo.animalsByIds();
       var expected = [];
@@ -212,7 +212,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#animalByName()', function () {
+  describe('#animalByName()', function () {
     it('with no parameters, returns an empty object', function () {
       var result   = zoo.animalByName();
       var expected = {};
@@ -228,7 +228,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#employeesByIds()', function () {
+  describe('#employeesByIds()', function () {
     it('with no parameters, returns an empty array', function () {
       var result   = zoo.employeesByIds();
       var expected = [];
@@ -278,7 +278,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#employeeByName()', function () {
+  describe('#employeeByName()', function () {
     it('with no parameters, returns an empty object', function () {
       var result   = zoo.employeeByName();
       var expected = {};
@@ -317,7 +317,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#managersForEmployee()', function () {
+  describe('#managersForEmployee()', function () {
     it('with an employee\'s id, returns the names of that employee\'s managers', function () {
       var result   = zoo.managersForEmployee('b0dc644a-5335-489b-8a2c-4e086c7819a2');
       var expected = {
@@ -362,7 +362,7 @@ describe('Zoo', function() {
     });
   });
 
-  xdescribe('#employeeCoverage()', function () {
+  describe('#employeeCoverage()', function () {
     it('with no parameters, returns a list of employees and the animals they\'re responsible for', function () {
       var result   = zoo.employeeCoverage();
       var expected = { 'Nigel Nelson': [ 'lions', 'tigers' ],
