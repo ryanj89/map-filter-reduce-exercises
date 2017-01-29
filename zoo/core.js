@@ -35,29 +35,84 @@ function animalCount (species) {
 };
 
 function animalMap (options) {
-    return zoo.animals.reduce(function(animalMap, animal) {
-      if (!options) {
-        animalMap[animal.location].push(animal.name);
-      } else if (options.includeNames) {
-        var animalObj = {};
-        var animalNames = [];
-        animal.residents.forEach(function(eachAnimal) {
-          animalNames.push(eachAnimal.name);
-        });
-        animalObj[animal.name] = animalNames;
-        animalMap[animal.location].push(animalObj);
-      } else if (options.sex) {
-        var filterAnimals = animal.residents.filter(function(eachAnimal) {
-          if (eachAnimal.sex === options.sex) {
-            return eachAnimal.sex;
-          }
-        });
+  function formatInfo(species) {
+    if ( !options || !options.includeNames ) { return species.name; }
 
-      }
+    var animalName = species.name;
+    var result = { };
+    result[animalName] = species.residents;
 
-      return animalMap;
-    }, { 'NE': [], 'NW': [], 'SE': [], 'SW': [] });
+    if (options.sex) {
+      result[animalName] = result[animalName].filter(function(resident) {
+        return resident.sex === options.sex;
+      });
+    }
+
+    result[animalName] = result[animalName].map(function(animal) {
+      return animal.name;
+    });
+
+    return result;
+  }
+
+  return zoo.animals.reduce(function(result, species) {
+    var speciesInfo = formatInfo(species);
+
+    if (result[species.location]) {
+      result[species.location].push(speciesInfo);
+    } else {
+      result[species.location] = [speciesInfo];
+    }
+
+    return result;
+  }, { } );
+    // return zoo.animals.reduce(function(animalMap, animal) {
+    //   if (!options) {
+    //     animalMap[animal.location].push(animal.name);
+    //   } else if (options.includeNames) {
+    //     var animalObj = {};
+    //     var animalNames = [];
+    //     animal.residents.forEach(function(eachAnimal) {
+    //       animalNames.push(eachAnimal.name);
+    //     });
+    //     animalObj[animal.name] = animalNames;
+    //     animalMap[animal.location].push(animalObj);
+    //   } else if (options.sex) {
+    //     var filterAnimals = animal.residents.filter(function(eachAnimal) {
+    //       if (eachAnimal.sex === options.sex) {
+    //         return eachAnimal.sex;
+    //       }
+    //     });
+    //
+    //   }
+    //
+    //   return animalMap;
+    // }, { 'NE': [], 'NW': [], 'SE': [], 'SW': [] });
 };
+// function animalMap (options) {
+//     return zoo.animals.reduce(function(animalMap, animal) {
+//       if (!options) {
+//         animalMap[animal.location].push(animal.name);
+//       } else if (options.includeNames) {
+//         var animalObj = {};
+//         var animalNames = [];
+//         animal.residents.forEach(function(eachAnimal) {
+//           animalNames.push(eachAnimal.name);
+//         });
+//         animalObj[animal.name] = animalNames;
+//         animalMap[animal.location].push(animalObj);
+//       } else if (options.sex) {
+//         var filterAnimals = animal.residents.filter(function(eachAnimal) {
+//           if (eachAnimal.sex === options.sex) {
+//             return eachAnimal.sex;
+//           }
+//         });
+//
+//       }
+//
+//       return animalMap;
+//     }, { 'NE': [], 'NW': [], 'SE': [], 'SW': [] });
+// };
 
 function animalPopularity (rating) {
   var animalPopularity = zoo.animals.reduce(function(popularity, animal) {
@@ -125,18 +180,12 @@ function employeeByName (employeeName) {
 
 function managersForEmployee (idOrName) {
   // If search by ID
-  if (idOrName.match(/\d/)) {
-    var employee = employeesByIds(idOrName)[0];
-    var managers = employeesByIds(employee.managers);
-  } else {
-    var employee = employeeByName(idOrName);
-    var managers = employeesByIds(employee.managers);
-  }
-  var managerName = [ ];
-  managers.forEach(function(manager) {
-    managerName.push(manager.firstName + " " + manager.lastName);
-  });
-  employee.managers = managerName;
+  var employee = idOrName.match(/\d/) ?
+                  employeesByIds(idOrName)[0] :
+                  employeeByName(idOrName);
+  var managers = employeesByIds(employee.managers);
+
+  employee.managers = managers.map( manager => manager.firstName + " " + manager.lastName);
   return employee;
 };
 
@@ -145,30 +194,20 @@ function employeeCoverage (idOrName) {
 
   if (!idOrName) {  // Empty parameter
     zoo.employees.forEach(function(employee) {
-      var employeeName = employee.firstName + " " + employee.lastName;
-      var animalCoverage = [ ];
-      employee.responsibleFor.forEach(function(id) {
-        animalCoverage.push(animalsByIds(id)[0].name);
-      });
-      employeeCoverage[employeeName] = animalCoverage;
+      employeeCoverage[getFullName(employee)] = employee.responsibleFor.map( id => animalsByIds(id)[0].name );
     });
     return employeeCoverage;
-  }
-
-  if (idOrName.match(/\d/)) { // Get employee by name or ID
+  } else if (idOrName.match(/\d/)) { // Get employee by ID
     var employee = employeesByIds(idOrName)[0];
-  } else {
+  } else {  // Get employee by Name
     var employee = employeeByName(idOrName);
   }
 
-  var animalCoverage = [ ];
-  var employeeName = employee.firstName + " " + employee.lastName;
+  employeeCoverage[getFullName(employee)] = employee.responsibleFor.map( id => animalsByIds(id)[0].name );
 
-  employee.responsibleFor.forEach(function(id) {
-    animalCoverage.push(animalsByIds(id)[0].name);
-  });
-  employeeCoverage[employeeName] = animalCoverage;
-  
+  function getFullName(employee) {
+    return employee.firstName + " " + employee.lastName;
+  }
   return employeeCoverage;
 };
 

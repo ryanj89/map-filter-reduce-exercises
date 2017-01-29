@@ -113,7 +113,7 @@ describe('Zoo', function() {
     });
 
 
-    xit('with specified options, returns names of fe/male animals', function () {
+    it('with specified options, returns names of fe/male animals', function () {
       var options  = { includeNames: true, sex: 'female' }
       var result   = zoo.animalMap(options);
       var expected = { NE: [ { lions: [ 'Zena', 'Dee' ] },
@@ -129,7 +129,7 @@ describe('Zoo', function() {
       assert.deepEqual(expected, result);
     });
 
-    xit('will only return gender specific information if includeNames is set', function () {
+    it('will only return gender specific information if includeNames is set', function () {
       var options  = { sex: 'female' }
       var result   = zoo.animalMap(options)['NE'][0];
       var expected = 'lions';
